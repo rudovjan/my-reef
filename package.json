@@ -1,0 +1,15 @@
+{
+  "name": "my-reef",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted Red Sea ReefControl and AquaWiz aquarium dashboard",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22.9" },
+  "scripts": {
+    "setup": "node --env-file-if-exists=.env setup-password.mjs",
+    "password": "node --env-file-if-exists=.env setup-password.mjs",
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "test": "node --test"
+  }
+}

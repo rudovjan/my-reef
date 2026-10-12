@@ -1,0 +1,11 @@
+.git
+.env
+.env.*
+node_modules
+data
+*.log
+**/auth.json
+**/password.txt
+**/sessions.json
+**/reef-sessions.key
+**/reef-sessions.enc.json
