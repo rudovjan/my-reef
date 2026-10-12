@@ -1,6 +1,6 @@
 FROM node:24-alpine
 WORKDIR /app
-COPY package.json server.mjs setup-password.mjs ./
+COPY package.json server.mjs setup-password.mjs start.mjs ./
 COPY lib ./lib
 COPY public ./public
 COPY docker-entrypoint.sh ./

@@ -6,6 +6,16 @@ Alkalinity and salinity sit side by side on phones and desktops, with green/red 
 
 **Each installation belongs to one owner.** Share this repository so other reef keepers can run their own copy and connect their own accounts. Everyone signed into the same installation sees that owner's equipment; this is not a public service with separate user accounts.
 
+## Start here — no coding needed
+
+Follow the **[beginner guide](docs/START-HERE.md)** in this order:
+
+1. **[Download and start](docs/START-HERE.md#1-download-and-start).** Install Node.js once, download the ZIP and double-click **Start My Reef** for Mac or Windows. It creates your login and shows your password. No Git or npm commands are needed.
+2. **[Phone and away-from-home access — optional](docs/START-HERE.md#2-access-from-your-phone-or-away-from-home--optional).** Set up ngrok, paste your address into **Set Up Phone Access**, then run the tunnel command it gives you. Skip this if you only use the computer running the app. Phone access currently needs HTTPS even on home Wi-Fi; ngrok supplies that address, or you can use an existing HTTPS setup.
+3. **[Add it to your home screen](docs/START-HERE.md#3-add-my-reef-to-your-home-screen).** On iPhone/iPad use Safari → Share → Add to Home Screen. On Android use Chrome's menu → Install and create shortcut → Install.
+
+Your computer stays on and runs the app; the phone icon opens its dashboard. This project does not have a published `npx my-reef` package yet. The guide provides the download-and-start option.
+
 ## See it working
 
 Real readings from the original owner's running dashboard, captured on 2026-10-12. Alkalinity and salinity are shown together, with their ranges, measurement times and alkalinity history:
@@ -18,7 +28,7 @@ Switch the history selector to see salinity collected by the server:
 
 These screenshots come from the working Playground version. The standalone app has the same dashboard layout, with its own Sign out button in place of the Playground link. Account fields and equipment identifiers are outside the screenshots; no saved connections or private data files are included in this repository.
 
-## Quick start
+## Command-line setup
 
 Install [Node.js 24 LTS](https://nodejs.org/en/download) (Node 22.9+ also works), then:
 
@@ -84,6 +94,8 @@ Set `MY_REEF_DATA_DIR` before both setup and startup. Keep it outside `public/`.
 ## Connections, data and passwords
 
 Equipment passwords are used only for sign-in and are not stored. Vendor tokens, selected equipment, snapshots and history are encrypted with AES-256-GCM. The random key and vault remain in the private data directory with owner-only permissions. Browser APIs never return vendor passwords or tokens.
+
+The beginner start files show the My Reef login password in their local text window for easy copying. Keep that window out of screenshots or shared logs. The Docker entrypoint and `npm run setup` print the password file's location instead.
 
 Browser login persists until logout, password rotation or browser data removal. Sign out revokes only that browser's login and retains the owner's equipment connections. The equipment Disconnect buttons remove the selected brand's saved connection for every signed-in browser on that installation. Password rotation revokes browser sessions and requires reconnecting equipment:
 

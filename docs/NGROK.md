@@ -2,6 +2,8 @@
 
 Run My Reef on your computer or home server and use ngrok to give it an HTTPS address. You can open that address from your phone, including away from home, and install it on your home screen.
 
+If you prefer downloading a ZIP and opening a start file, use the [beginner guide](START-HERE.md) instead. This page is for the Docker setup.
+
 ```mermaid
 flowchart LR
     Phone[Phone or desktop app] -->|HTTPS| Public[Your ngrok address]
@@ -90,7 +92,7 @@ Open your HTTPS ngrok address, sign in using the My Reef password and connect yo
 
 ## 5. Add it to your home screen
 
-On iPhone, open the HTTPS address in Safari and choose Share → Add to Home Screen. Supporting Android and desktop browsers offer an install option too. Keep the same ngrok address so your saved app shortcut continues to work.
+On iPhone, open the HTTPS address in Safari and choose Share → Add to Home Screen. On Android, open it in Chrome and choose the three-dot menu → Install and create shortcut → Install (some versions say Install app or Add to Home screen). See the [step-by-step phone instructions](START-HERE.md#3-add-my-reef-to-your-home-screen). Supporting desktop browsers offer an install option too. Keep the same ngrok address so your saved app shortcut continues to work.
 
 Docker, the ngrok agent, the computer and its internet connection must stay running. Keep the computer awake. The server polls Red Sea every minute and AquaWiz every 15 minutes while the page is closed. The browser refreshes when it becomes active again; installing the app does not keep phone JavaScript running in the background.
 
