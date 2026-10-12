@@ -6,6 +6,8 @@ Run a single persistent Node process for each owner. The app keeps browser sessi
 
 Use the README's Node or Docker instructions. An HTTPS reverse proxy or tunnel can expose the loopback port to your phone without changing the dashboard code. Set `PUBLIC_ORIGIN` to its exact HTTPS origin before starting the app. Your computer must stay awake for polling.
 
+For a step-by-step setup using a Docker container and an ngrok agent on the same computer, see [Docker + ngrok](NGROK.md). It includes the exact origin setting, persistent storage, home-screen installation, restarting after updates and common errors. A tunnel supplies remote access; the computer still runs the app and stores its data.
+
 Keep the existing Playground instance separate. My Reef uses its own port, data directory and `my_reef_session` cookie. The source is extracted without Playground credentials, history or unrelated apps. Sign into equipment on your new instance; extraction does not copy private connections from the existing server.
 
 ## Managed Node host

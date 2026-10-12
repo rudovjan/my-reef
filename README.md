@@ -6,6 +6,18 @@ Alkalinity and salinity sit side by side on phones and desktops, with green/red 
 
 **Each installation belongs to one owner.** Share this repository so other reef keepers can run their own copy and connect their own accounts. Everyone signed into the same installation sees that owner's equipment; this is not a public service with separate user accounts.
 
+## See it working
+
+Real readings from the original owner's running dashboard, captured on 2026-10-12. Alkalinity and salinity are shown together, with their ranges, measurement times and alkalinity history:
+
+![My Reef dashboard showing AquaWiz alkalinity, Red Sea salinity and seven days of alkalinity history](docs/screenshots/dashboard.jpg)
+
+Switch the history selector to see salinity collected by the server:
+
+![Red Sea salinity history over the last 24 hours](docs/screenshots/salinity-history.jpg)
+
+These screenshots come from the working Playground version. The standalone app has the same dashboard layout, with its own Sign out button in place of the Playground link. Account fields and equipment identifiers are outside the screenshots; no saved connections or private data files are included in this repository.
+
 ## Quick start
 
 Install [Node.js 24 LTS](https://nodejs.org/en/download) (Node 22.9+ also works), then:
@@ -38,6 +50,8 @@ docker compose up -d --build
 ```
 
 These commands retain the volume. `docker compose down -v` deletes your saved data; do not use it for ordinary updates.
+
+**Want it on your phone from anywhere?** Follow the [Docker + ngrok guide](docs/NGROK.md): run My Reef in Docker, tunnel its local port to your own HTTPS address, then add that address to your home screen. The guide includes setup, restarts, updates and troubleshooting.
 
 ## Phone and remote access
 
@@ -90,7 +104,7 @@ Back up the **entire private data directory** together, including `reef-sessions
 - Missing or stale readings remain neutral. Red Sea can renew a vendor-supplied refresh token. AquaWiz adopts new tokens when provided with readings; an expired or revoked connection may require another sign-in.
 - Apex and Alkatronic are not implemented. This is a dashboard with read requests; it does not start tests, dose, calibrate or control equipment.
 
-These are community integrations with vendor interfaces, not a vendor-supported API contract. The original owner's Red Sea and AquaWiz cloud readings were verified on 2026-10-11; other accounts and hardware must be checked through their own connection results. This repository includes no real account credentials or tank data. [Protocol notes and attribution](docs/PROTOCOLS.md)
+These are community integrations with vendor interfaces, not a vendor-supported API contract. The original owner's Red Sea and AquaWiz cloud readings were verified on 2026-10-11; other accounts and hardware must be checked through their own connection results. This repository includes no real account credentials, connection tokens or saved tank-data files. The screenshots above show selected readings shared by the owner. [Protocol notes and attribution](docs/PROTOCOLS.md)
 
 ## Development
 
