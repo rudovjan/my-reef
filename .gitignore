@@ -13,3 +13,5 @@ sessions.json
 reef-sessions.key
 reef-sessions.enc.json
 *.tmp
+*.tgz
+settings.env

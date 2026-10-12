@@ -10,13 +10,27 @@ My Reef shows your Red Sea salinity and AquaWiz alkalinity together. You run it 
 
 [Download Node.js 24 LTS](https://nodejs.org/en/download). Choose the **installer** for your computer: `.pkg` for Mac or `.msi` for Windows. Open it and follow the installation steps. Node.js is the small program that runs My Reef on your computer.
 
-### Download My Reef
+### Start with one command — recommended
+
+Open **Terminal** on Mac (find it with Spotlight) or **Command Prompt** on Windows (find it in the Start menu).
+
+Copy this whole line, paste it into that window and press Enter:
+
+```sh
+npx --yes https://github.com/rudovjan/my-reef/archive/refs/tags/v0.2.0.tar.gz
+```
+
+This downloads and starts My Reef. First startup creates your login automatically. You do not need Git, Docker or an npm account. It should say **Open http://localhost:3000**.
+
+Keep this command somewhere handy. Run the same line to start the app again later. Your password and saved equipment stay on your computer between starts and downloads.
+
+### Prefer a downloaded folder? Use the ZIP instead
 
 [Download My Reef as a ZIP](https://github.com/rudovjan/my-reef/archive/refs/heads/main.zip).
 
 On Mac, open the ZIP to unpack it. On Windows, right-click the ZIP and choose **Extract All**. Open the extracted `my-reef-main` folder. Keep that folder somewhere convenient, such as Documents.
 
-### Start it
+### Start the ZIP version
 
 Double-click the start file for your computer:
 
@@ -35,11 +49,11 @@ Copy the **My Reef login password** shown in the text window, paste it into the 
 
 Connect Red Sea using the same email and password you use in ReefBeat. Connect AquaWiz using your AquaWiz account. You should now see your readings. A KH reading changes when your tester performs a new test; refreshing the dashboard does not start a test.
 
-**Leave the My Reef window open and keep the computer awake.** Closing that window stops the app. To start it again, use the same Start My Reef file. Your password and saved connections are kept between starts.
+**Leave the My Reef window open and keep the computer awake.** Closing that window stops the app. To start it again, run the same npx command or use the same Start My Reef file. Your password and saved connections are kept between starts.
 
 ### Is there an npx version?
 
-This project does not publish an **`npx my-reef`** package yet. Use the ZIP and start file above; you do not need npm commands or Git. People already comfortable with Docker can use the [Docker instructions](../README.md#docker) instead.
+Yes: the npx command above runs this project's tagged GitHub release. The shorter **`npx my-reef`** command needs publication to npm and is not available yet. Use the complete command shown above. People already comfortable with Docker can use the [Docker instructions](../README.md#docker) instead.
 
 ## 2. Access from your phone or away from home — optional
 
@@ -58,11 +72,19 @@ ngrok gives your running app a web address. It also lets you use it away from ho
 
 ### Tell My Reef its new address
 
-1. Stop My Reef by pressing **Control+C** in its window.
-2. In the extracted My Reef folder, double-click **Set Up Phone Access.command** on Mac or **Set Up Phone Access.bat** on Windows.
-3. Paste your ngrok address when asked, then press Enter. You can paste either the hostname or its full `https://` address.
-4. The helper saves the setting and shows the tunnel command you will need next. Leave this window open long enough to copy that command.
-5. Start My Reef again using **Start My Reef.command** or **Start My Reef.bat**. Its window should now show your HTTPS address.
+Stop My Reef by pressing **Control+C** in its window.
+
+If you started it with npx, paste this command into Terminal or Command Prompt and press Enter:
+
+```sh
+npx --yes https://github.com/rudovjan/my-reef/archive/refs/tags/v0.2.0.tar.gz phone
+```
+
+If you used the ZIP instead, double-click **Set Up Phone Access.command** on Mac or **Set Up Phone Access.bat** on Windows in the extracted folder.
+
+Paste your ngrok address when asked, then press Enter. You can paste either the hostname or its full `https://` address. The helper saves the setting and shows the tunnel command you will need next. Copy that command.
+
+Start My Reef again using your original npx command or Start My Reef file. Its window should now show your HTTPS address.
 
 ### Turn on the tunnel
 
@@ -105,7 +127,7 @@ The icon opens your dashboard; the computer continues to run it. Readings refres
 
 ## Next time
 
-1. Start My Reef on your computer using the same start file.
+1. Start My Reef on your computer using the same npx command or start file.
 2. If you use ngrok, open another Terminal or Command Prompt window and run the same tunnel command.
 3. Tap My Reef on your phone.
 

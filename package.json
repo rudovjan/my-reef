@@ -1,16 +1,19 @@
 {
   "name": "my-reef",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
   "description": "Self-hosted Red Sea ReefControl and AquaWiz aquarium dashboard",
   "type": "module",
   "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/rudovjan/my-reef.git" },
+  "bin": { "my-reef": "bin/my-reef.mjs" },
+  "files": ["bin/", "lib/", "public/", "server.mjs", "setup-password.mjs", "start.mjs", "configure-phone.mjs"],
   "engines": { "node": ">=22.9" },
   "scripts": {
     "launch": "node start.mjs",
     "setup": "node --env-file-if-exists=.env setup-password.mjs",
     "password": "node --env-file-if-exists=.env setup-password.mjs",
     "start": "node --env-file-if-exists=.env server.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "test:package": "node support/package-smoke.mjs"
   }
 }

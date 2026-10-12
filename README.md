@@ -10,11 +10,19 @@ Alkalinity and salinity sit side by side on phones and desktops, with green/red 
 
 Follow the **[beginner guide](docs/START-HERE.md)** in this order:
 
-1. **[Download and start](docs/START-HERE.md#1-download-and-start).** Install Node.js once, download the ZIP and double-click **Start My Reef** for Mac or Windows. It creates your login and shows your password. No Git or npm commands are needed.
-2. **[Phone and away-from-home access — optional](docs/START-HERE.md#2-access-from-your-phone-or-away-from-home--optional).** Set up ngrok, paste your address into **Set Up Phone Access**, then run the tunnel command it gives you. Skip this if you only use the computer running the app. Phone access currently needs HTTPS even on home Wi-Fi; ngrok supplies that address, or you can use an existing HTTPS setup.
+1. **[Download and start](docs/START-HERE.md#1-download-and-start).** Install Node.js once, then paste the npx command below. It downloads My Reef, creates your login and shows your password. A ZIP with Mac and Windows start files is also available.
+2. **[Phone and away-from-home access — optional](docs/START-HERE.md#2-access-from-your-phone-or-away-from-home--optional).** Set up ngrok, use the phone setup command or **Set Up Phone Access** file to paste your address, then run the tunnel command it gives you. Skip this if you only use the computer running the app. Phone access currently needs HTTPS even on home Wi-Fi; ngrok supplies that address, or you can use an existing HTTPS setup.
 3. **[Add it to your home screen](docs/START-HERE.md#3-add-my-reef-to-your-home-screen).** On iPhone/iPad use Safari → Share → Add to Home Screen. On Android use Chrome's menu → Install and create shortcut → Install.
 
-Your computer stays on and runs the app; the phone icon opens its dashboard. This project does not have a published `npx my-reef` package yet. The guide provides the download-and-start option.
+After installing Node.js 24 LTS, open Terminal on Mac or Command Prompt on Windows and paste:
+
+```sh
+npx --yes https://github.com/rudovjan/my-reef/archive/refs/tags/v0.2.0.tar.gz
+```
+
+Open the address shown in the window and sign in with the password it displays. Run the same command next time. It works without Git, a ZIP download or an npm account. Your computer stays on and runs the app; the phone icon opens its dashboard.
+
+This command downloads the tagged GitHub release. The shorter `npx my-reef` name is ready for npm publication but has not been published to the npm registry yet.
 
 ## See it working
 
@@ -80,6 +88,8 @@ Cloud reads work from a remote host. Red Sea's local-device fallback requires th
 ## Configuration
 
 Node commands load an optional `.env` file. Environment variables take precedence.
+
+The npx launcher keeps its settings in `settings.env` inside the private data directory, alongside its saved login and encrypted connections. This file survives replacement of npm's download cache. The ZIP start files continue to use the ZIP folder's `.env` file. Use the same launch method when restarting so it reads the same settings.
 
 | Setting | Default | Purpose |
 | --- | --- | --- |

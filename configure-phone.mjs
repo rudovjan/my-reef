@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync, renameSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, renameSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createInterface } from 'node:readline/promises';
@@ -13,7 +13,7 @@ try {
   const entered = (await input.question('Paste your ngrok HTTPS address, then press Enter: ')).trim();
   if (!entered) throw Error('No address entered. Your settings were kept.');
   const candidate = entered.includes('://') ? entered : 'https://' + entered;
-  const path = join(root, '.env');
+  const path = process.env.MY_REEF_SETTINGS_FILE || join(root, '.env');
   const previous = existsSync(path) ? readFileSync(path, 'utf8') : '';
   const config = loadConfig({ ...parseEnv(previous), ...process.env, PUBLIC_ORIGIN: candidate });
   const origin = config.origin;
@@ -22,9 +22,10 @@ try {
   const lines = previous.split(/\r?\n/).filter(line => !/^\s*(?:export\s+)?PUBLIC_ORIGIN\s*=/.test(line));
   const kept = lines.join('\n').replace(/\n*$/, '');
   const temporary = path + '.' + process.pid + '.tmp';
+  mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
   writeFileSync(temporary, (kept ? kept + '\n' : '') + 'PUBLIC_ORIGIN=' + origin + '\n', { mode: 0o600 });
   renameSync(temporary, path);
-  console.log('\nSaved. Start My Reef again using its start file.');
+  console.log('\nSaved. Start My Reef again using the same command or start file.');
   console.log('In a second Terminal or Command Prompt window, run:');
   console.log('ngrok http http://127.0.0.1:' + config.port + ' --url ' + origin + ' --inspect=false');
   console.log('\nThen open ' + origin + ' on your phone.');

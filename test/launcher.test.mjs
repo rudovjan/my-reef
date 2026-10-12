@@ -12,10 +12,10 @@ const source = dirname(dirname(fileURLToPath(import.meta.url)));
 function fixture() {
   const directory = mkdtempSync(join(tmpdir(), 'my-reef launcher test-'));
   const root = join(directory, 'app with spaces');
-  for (const name of ['server.mjs', 'setup-password.mjs', 'start.mjs', 'configure-phone.mjs', 'lib', 'public', 'Start My Reef.command', 'Start My Reef.bat', 'Set Up Phone Access.command', 'Set Up Phone Access.bat']) cpSync(join(source, name), join(root, name), { recursive: true });
+  for (const name of ['package.json', 'bin', 'server.mjs', 'setup-password.mjs', 'start.mjs', 'configure-phone.mjs', 'lib', 'public', 'Start My Reef.command', 'Start My Reef.bat', 'Set Up Phone Access.command', 'Set Up Phone Access.bat']) cpSync(join(source, name), join(root, name), { recursive: true });
   const data = join(directory, 'private data');
   const env = { ...process.env, REEF_POLLING: 'off' };
-  for (const name of ['PORT', 'HOST', 'PUBLIC_ORIGIN', 'MY_REEF_DATA_DIR']) delete env[name];
+  for (const name of ['PORT', 'HOST', 'PUBLIC_ORIGIN', 'MY_REEF_DATA_DIR', 'MY_REEF_SETTINGS_FILE']) delete env[name];
   return { directory, root, data, env, remove: () => rmSync(directory, { recursive: true, force: true }) };
 }
 async function start(f) {
@@ -94,5 +94,23 @@ test('Windows phone-access button runs from a folder with spaces', { skip: proce
     const result = spawnSync('cmd.exe', ['/d', '/s', '/c', '""' + join(f.root, 'Set Up Phone Access.bat') + '""'], { cwd: f.directory, env: f.env, input: 'button-test.ngrok-free.app\n\n', encoding: 'utf8', windowsVerbatimArguments: true });
     assert.equal(result.status, 0, result.stderr);
     assert.match(readFileSync(join(f.root, '.env'), 'utf8'), /PUBLIC_ORIGIN=https:\/\/button-test.ngrok-free.app/);
+  } finally { f.remove(); }
+});
+
+test('npx phone setup persists outside the package and a replacement package reads the saved settings', () => {
+  const f = fixture();
+  try {
+    const env = { ...f.env, MY_REEF_DATA_DIR: f.data };
+    const result = spawnSync(process.execPath, [join(f.root, 'bin', 'my-reef.mjs'), 'phone'], { cwd: f.directory, env, input: 'persistent-reef.ngrok-free.app\n', encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(existsSync(join(f.root, '.env')), false);
+    assert.match(readFileSync(join(f.data, 'settings.env'), 'utf8'), /PUBLIC_ORIGIN=https:\/\/persistent-reef.ngrok-free.app/);
+    const replacement = join(f.directory, 'replacement cache');
+    cpSync(f.root, replacement, { recursive: true });
+    writeFileSync(join(f.data, 'settings.env'), 'PUBLIC_ORIGIN=http://insecure.example\n');
+    const start = spawnSync(process.execPath, [join(replacement, 'bin', 'my-reef.mjs')], { cwd: f.directory, env, encoding: 'utf8', timeout: 10000 });
+    assert.equal(start.status, 1);
+    assert.match(start.stderr, /PUBLIC_ORIGIN/);
+    assert.equal(existsSync(join(f.data, 'auth.json')), false);
   } finally { f.remove(); }
 });

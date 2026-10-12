@@ -22,6 +22,18 @@ jobs:
         with:
           node-version: 24
       - run: node --test test/launcher.test.mjs
+  package:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm pack
+      - run: npm run test:package -- my-reef-0.2.0.tgz
   docker:
     runs-on: ubuntu-latest
     steps:

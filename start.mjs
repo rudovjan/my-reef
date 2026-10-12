@@ -17,7 +17,8 @@ if (process.argv.includes('--help')) {
 }
 
 try {
-  if (existsSync(join(root, '.env'))) process.loadEnvFile(join(root, '.env'));
+  const settings = process.env.MY_REEF_SETTINGS_FILE || join(root, '.env');
+  if (existsSync(settings)) process.loadEnvFile(settings);
   const config = loadConfig();
   const setup = spawnSync(process.execPath, [join(root, 'setup-password.mjs'), '--if-missing'], { encoding: 'utf8' });
   if (setup.status !== 0) throw Error(setup.stderr.trim() || 'First-time setup could not complete.');
