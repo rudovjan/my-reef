@@ -14,3 +14,27 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm test
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose up -d --build --wait
+      - name: Verify container setup and login
+        run: |
+          docker compose exec -T my-reef node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {readFileSync} from 'node:fs';
+          const password=readFileSync('/data/password.txt','utf8').trim();
+          const response=await fetch('http://localhost:3000/login',{method:'POST',redirect:'manual',headers:{Origin:'http://localhost:3000'},body:new URLSearchParams({password})});
+          assert.equal(response.status,303);
+          const cookie=response.headers.get('set-cookie').split(';')[0];
+          assert.equal((await fetch('http://localhost:3000/',{headers:{Cookie:cookie}})).status,200);
+          console.log('Container setup and authenticated dashboard verified.');
+          JS
+      - name: Verify rebuild retains private configuration
+        run: |
+          docker compose exec -T my-reef node -e "require('node:fs').copyFileSync('/data/auth.json','/data/auth-before.json')"
+          docker compose up -d --force-recreate --wait
+          docker compose exec -T my-reef node -e "const fs=require('node:fs');require('node:assert/strict').equal(fs.readFileSync('/data/auth.json','utf8'),fs.readFileSync('/data/auth-before.json','utf8'));console.log('Persistent volume retained after recreation.')"
+      - if: always()
+        run: docker compose down
