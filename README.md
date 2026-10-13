@@ -22,7 +22,7 @@ npx --yes https://github.com/rudovjan/my-reef/archive/refs/tags/v0.2.0.tar.gz
 
 Open the address shown in the window and sign in with the password it displays. Run the same command next time. It works without Git, a ZIP download or an npm account. Your computer stays on and runs the app; the phone icon opens its dashboard.
 
-This command downloads the tagged GitHub release. The shorter `npx my-reef` name is ready for npm publication but has not been published to the npm registry yet.
+This command downloads the tagged GitHub release. You do not need an npm account or an npm website login.
 
 ## See it working
 

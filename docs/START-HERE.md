@@ -53,7 +53,7 @@ Connect Red Sea using the same email and password you use in ReefBeat. Connect A
 
 ### Is there an npx version?
 
-Yes: the npx command above runs this project's tagged GitHub release. The shorter **`npx my-reef`** command needs publication to npm and is not available yet. Use the complete command shown above. People already comfortable with Docker can use the [Docker instructions](../README.md#docker) instead.
+Yes: use the complete npx command above. It downloads My Reef directly from this project's tagged GitHub release; you do not need an npm account or an npm website login. People already comfortable with Docker can use the [Docker instructions](../README.md#docker) instead.
 
 ## 2. Access from your phone or away from home — optional
 

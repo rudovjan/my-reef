@@ -1,6 +1,7 @@
 {
   "name": "my-reef",
   "version": "0.2.0",
+  "private": true,
   "description": "Self-hosted Red Sea ReefControl and AquaWiz aquarium dashboard",
   "type": "module",
   "license": "MIT",
